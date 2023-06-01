@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script>
+    function validateID() {
+      var s = document.getElementById('idNumber').value;
+      var table = {
+        'A': 10, 'B': 11, 'C': 12, 'D': 13, 'E': 14, 'F': 15, 'G': 16, 'H': 17, 'I': 34,
+        'J': 18, 'K': 19, 'L': 20, 'M': 21, 'N': 22, 'O': 35, 'P': 23, 'Q': 24, 'R': 25,
+        'S': 26, 'T': 27, 'U': 28, 'V': 29, 'W': 32, 'X': 30, 'Y': 31, 'Z': 33
+      };
+      if (s.length !== 10) {
+        alert('Invalid ID');
+        return;
+      }
+      if (isNaN(s.slice(1))) {
+        alert('Invalid ID');
+        return;
+      }
+      if (!(s[0] in table)) {
+        alert('Invalid ID');
+        return;
+      }
+      if (s[1] !== '1' && s[1] !== '2') {
+        alert('Invalid ID');
+        return;
+      }
+      var tenDigit = Math.floor(table[s[0]] / 10);
+      var digit = table[s[0]] % 10;
+      var weightedAverage = tenDigit * 1 + digit * 9;
+      for (var i = 1; i < 9; i++) {
+        weightedAverage += parseInt(s[i]) * (9 - i);
+      }
+      var remain = weightedAverage % 10;
+      var inspectNum = (10 - remain) % 10;
+      if (inspectNum.toString() === s.slice(-1)) {
+        alert('Valid ID');
+      } else {
+        alert('Invalid ID');
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <input type="text" id="idNumber" placeholder="Please type your ID number here">
+  <button onclick="validateID()">Go</button>
+  <br><br><button onclick="goBack()">Back</button></button></br></br>
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+
+</html>
